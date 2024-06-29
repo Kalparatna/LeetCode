@@ -1,0 +1,53 @@
+'''
+Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*' where:
+
+'?' Matches any single character.
+'*' Matches any sequence of characters (including the empty sequence).
+The matching should cover the entire input string (not partial).
+
+ 
+
+Example 1:
+
+Input: s = "aa", p = "a"
+Output: false
+Explanation: "a" does not match the entire string "aa".
+Example 2:
+
+Input: s = "aa", p = "*"
+Output: true
+Explanation: '*' matches any sequence.
+Example 3:
+
+Input: s = "cb", p = "?a"
+Output: false
+Explanation: '?' matches 'c', but the second letter is 'a', which does not match 'b'.
+ 
+'''
+------------------------------------------------------------------------------------------------------
+
+class Solution(object):
+    def isMatch(self, s, p):
+        si, pi = 0, 0
+        match_si, match_pi = -1, -1
+        m, n = len(s), len(p)
+        
+        while si < m:
+            if pi < n and (p[pi] == s[si] or p[pi] == '?'):
+                si += 1
+                pi += 1
+            elif pi < n and p[pi] == '*':
+                match_si = si
+                match_pi = pi
+                pi += 1
+            elif match_pi != -1:
+                match_si += 1
+                si = match_si
+                pi = match_pi + 1
+            else:
+                return False
+        
+        while pi < n and p[pi] == '*':
+            pi += 1
+        
+        return pi == n
