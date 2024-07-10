@@ -29,7 +29,9 @@ Output: 3
 Input: logs = ["d1/","../","../","../"]  
 Output: 0
 
-========================================================================================================
+---
+
+```python
 class Solution:
     def minOperations(self, logs: List[str]) -> int:
         position = 0
@@ -44,47 +46,3 @@ class Solution:
                 position += 1
 
         return position
-=====================================================================================================
-
-EXPALINATION : 
-
-
-### Explanation of the Code
-
-The provided Python solution defines a class `Solution` with a method `minOperations` that takes a list of strings `logs` as input and returns the minimum number of operations needed to return to the main folder. The method uses a variable `position` to track the current depth in the folder structure.
-
-1. **Initialization**: Start with `position = 0` representing the main folder.
-2. **Iteration**: Loop through each operation in the `logs` list.
-   - If the operation is `"../"` and `position` is greater than 0, decrease `position` by 1 to move to the parent folder.
-   - If the operation is `"./"`, do nothing.
-   - For any other operation (representing moving to a child folder), increase `position` by 1.
-3. **Return**: The final value of `position` represents the minimum number of operations needed to return to the main folder.
-
-### Example Execution
-
-For `logs = ["d1/","d2/","../","d21/","./"]`:
-- `"d1/"`: Move to `d1` (`position = 1`)
-- `"d2/"`: Move to `d2` (`position = 2`)
-- `"../"`: Move back to `d1` (`position = 1`)
-- `"d21/"`: Move to `d21` (`position = 2`)
-- `"./"`: Stay in `d21` (`position = 2`)
-
-Finally, `position = 2`, so you need 2 `"../"` operations to return to the main folder.
-
-For `logs = ["d1/","d2/","./","d3/","../","d31/"]`:
-- `"d1/"`: Move to `d1` (`position = 1`)
-- `"d2/"`: Move to `d2` (`position = 2`)
-- `"./"`: Stay in `d2` (`position = 2`)
-- `"d3/"`: Move to `d3` (`position = 3`)
-- `"../"`: Move back to `d2` (`position = 2`)
-- `"d31/"`: Move to `d31` (`position = 3`)
-
-Finally, `position = 3`, so you need 3 `"../"` operations to return to the main folder.
-
-For `logs = ["d1/","../","../","../"]`:
-- `"d1/"`: Move to `d1` (`position = 1`)
-- `"../"`: Move back to the main folder (`position = 0`)
-- `"../"`: Stay in the main folder (`position = 0`)
-- `"../"`: Stay in the main folder (`position = 0`)
-
-Finally, `position = 0`, so you need 0 `"../"` operations to return to the main folder.
